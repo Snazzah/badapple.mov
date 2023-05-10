@@ -21,22 +21,23 @@
     <meta name="twitter:player:stream" content="https://badapple.mov/badapple.mp4" />
     <meta name="twitter:player:stream:content_type" content="video/mp4" />
     <meta property="title" content="badapple">
-  </head>
-  <body>
     <style type="text/css">
       *, body, html, video, source {
         margin: 0;
         padding: 0;
+        overflow: hidden;
       }
       video {
+        height: 100vh;
         width: 100%;
-        height: auto;
+        object-fit: cover;
       }
-
     </style>
-    <video width="100%" controls autoplay>
-      <source src="https://badapple.mov/badapple.webm" type="video/webm">
-      <source src="https://badapple.mov/badapple.mp4" type="video/mp4">
-    </video>
+  </head>
+  <body>
+    <video src="/badapple.mp4" autoplay="autoplay" loop controls muted></video>
+    <script>
+      document.querySelector("video").addEventListener("play", () => (document.querySelector("video").muted = false), { once: true })
+    </script>
   </body>
 </html>
