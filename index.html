@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>badapple</title>
+    <title>Bad Apple!!</title>
     <link rel="canonical" href="https://badapple.mov/" />
+    <link rel="icon" type="image/png" sizes="480x480" href="/badicon.png">
     <meta property="og:url" content="https://badapple.mov/">
     <meta property="og:video" content="https://badapple.mov/badapple.mp4" />
     <meta property="og:video:secure_url" content="https://badapple.mov/badapple.mp4">
@@ -35,9 +36,20 @@
     </style>
   </head>
   <body>
-    <video src="/badapple.mp4" autoplay="autoplay" loop controls muted></video>
+    <video src="/badapple.mp4" autoplay loop controls muted></video>
     <script>
-      document.querySelector("video").addEventListener("play", () => (document.querySelector("video").muted = false), { once: true })
+      const video = document.querySelector("video");
+      video.addEventListener("play", () => (video.muted = false), { once: true });
+      function screenshotToFavicon() {
+        const canvas = document.createElement("canvas"),
+        size = video.videoHeight,
+        widthCrop = (video.videoWidth - video.videoHeight) / 2;
+        canvas.width = 64;
+        canvas.height = 64;
+        canvas.getContext('2d').drawImage(video, widthCrop, 0, size, size, 0, 0, canvas.width, canvas.height);
+        document.querySelector("link[rel='icon']").href = canvas.toDataURL();
+      }
+      setInterval(() => { if (!video.paused) screenshotToFavicon(); }, 100);
     </script>
   </body>
 </html>
