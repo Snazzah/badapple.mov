@@ -38,16 +38,18 @@
   <body>
     <video src="/badapple.mp4" autoplay loop controls muted></video>
     <script>
-      const video = document.querySelector("video");
+      const video = document.querySelector("video"),
+        favicon = document.querySelector("link[rel='icon']"),
+        canvas = document.createElement("canvas"),
+        ctx = canvas.getContext('2d');
       video.addEventListener("play", () => (video.muted = false), { once: true });
       function screenshotToFavicon() {
-        const canvas = document.createElement("canvas"),
-        size = video.videoHeight,
-        widthCrop = (video.videoWidth - video.videoHeight) / 2;
+        const size = video.videoHeight,
+          widthCrop = (video.videoWidth - video.videoHeight) / 2;
         canvas.width = 64;
         canvas.height = 64;
-        canvas.getContext('2d').drawImage(video, widthCrop, 0, size, size, 0, 0, canvas.width, canvas.height);
-        document.querySelector("link[rel='icon']").href = canvas.toDataURL();
+        ctx.drawImage(video, widthCrop, 0, size, size, 0, 0, canvas.width, canvas.height);
+        favicon.href = canvas.toDataURL();
       }
       setInterval(() => { if (!video.paused) screenshotToFavicon(); }, 100);
     </script>
