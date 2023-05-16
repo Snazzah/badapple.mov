@@ -42,7 +42,6 @@
         favicon = document.querySelector("link[rel='icon']"),
         canvas = document.createElement("canvas"),
         ctx = canvas.getContext('2d');
-      video.addEventListener("play", () => (video.muted = false), { once: true });
       function screenshotToFavicon() {
         const size = video.videoHeight,
           widthCrop = (video.videoWidth - video.videoHeight) / 2;
