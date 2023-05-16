@@ -33,12 +33,20 @@
         width: 100%;
         object-fit: cover;
       }
+      button {
+        height: 100vh;
+        width: 100%;
+        opacity: 0;
+        position: fixed;
+      }
     </style>
   </head>
   <body>
+    <button></button>
     <video src="/badapple.mov" autoplay loop controls muted></video>
     <script>
       const video = document.querySelector("video"),
+        unmuteButton = document.querySelector("button"),
         favicon = document.querySelector("link[rel='icon']"),
         canvas = document.createElement("canvas"),
         ctx = canvas.getContext('2d');
@@ -51,6 +59,8 @@
         favicon.href = canvas.toDataURL();
       }
       setInterval(() => { if (!video.paused) screenshotToFavicon(); }, 100);
+      video.onclick = () => (video.muted = false);
+      unmuteButton.addEventListener("click", () => {video.muted = false;unmuteButton.remove()}, { once: true });
     </script>
   </body>
 </html>
